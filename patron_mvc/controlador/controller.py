@@ -67,9 +67,11 @@ class Controller:
             
             if btnStr == "C":
                 self.view.txtMain.delete(0,len(self.view.txtMain.get()))
+                self.actualOperation = ""
                 self.activateButtons()
     
     def opPress(self, ev):
+        self.eqPress(ev)
         if (ev.widget.cget("state") != tk.DISABLED):
             opStr = ev.widget.cget('text')
             self.actualOperation = opStr
@@ -80,7 +82,7 @@ class Controller:
 
     
     def eqPress(self, ev):
-        if (ev.widget.cget("state") != tk.DISABLED):
+        if (ev.widget.cget("state") != tk.DISABLED and self.actualOperation):
             num = self.view.txtMain.get()
             self.model.set_num2(float(num))
             self.operationsDict[self.actualOperation]()
