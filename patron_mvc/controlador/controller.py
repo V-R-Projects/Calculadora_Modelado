@@ -60,34 +60,39 @@ class Controller:
         self.view.txtMain.insert(0,self.model.get_resultado())
 
     def btnPress(self, ev):
-        if (!ev.widget.)
-        btnStr = ev.widget.cget('text')
-        if btnStr.isdigit() or btnStr == '.':
-            self.view.txtMain.insert(len(self.view.txtMain.get()), btnStr)
-        
-        if btnStr == "C":
-            self.view.txtMain.delete(0,len(self.view.txtMain.get()))
-            self.activateButtons()
+        if (ev.widget.cget("state") != tk.DISABLED):
+            btnStr = ev.widget.cget('text')
+            if btnStr.isdigit() or btnStr == '.':
+                self.view.txtMain.insert(len(self.view.txtMain.get()), btnStr)
+            
+            if btnStr == "C":
+                self.view.txtMain.delete(0,len(self.view.txtMain.get()))
+                self.actualOperation = ""
+                self.activateButtons()
     
     def opPress(self, ev):
-        opStr = ev.widget.cget('text')
-        self.actualOperation = opStr
+        self.eqPress(ev)
+        if (ev.widget.cget("state") != tk.DISABLED):
+            opStr = ev.widget.cget('text')
+            self.actualOperation = opStr
 
-        num = self.view.txtMain.get()
-        self.model.set_num1(float(num))
-        self.view.txtMain.delete(0,len(self.view.txtMain.get()))
+            num = self.view.txtMain.get()
+            self.model.set_num1(float(num))
+            self.view.txtMain.delete(0,len(self.view.txtMain.get()))
 
     
     def eqPress(self, ev):
-        self.deactivateButtons()
-        num = self.view.txtMain.get()
-        self.model.set_num2(float(num))
-        self.operationsDict[self.actualOperation]()
-        self.printResultado()
+        if (ev.widget.cget("state") != tk.DISABLED and self.actualOperation):
+            num = self.view.txtMain.get()
+            self.model.set_num2(float(num))
+            self.operationsDict[self.actualOperation]()
+            self.printResultado()
     
     def mpPress(self, ev):
-        self.model.guardar_memoria()
-        self.printResultado()
+        if (ev.widget.cget("state") != tk.DISABLED):
+            self.deactivateButtons()
+            self.model.guardar_memoria()
+            self.printResultado()
 
         
         
