@@ -10,41 +10,64 @@ Autores: Valesska Blanco Montoya y Ramsés Gutiérrez Rodríguez
 class OperationsModel:
 
     def __init__(self):
+        self.num1 = 0
+        self.num2 = 0
         self.resultado = 0
         self.memoria = []
         self.MEMORIA_MAX = 10
 
-    def realizar_suma(self, num1, num2):
-        self.resultado = num1 + num2
+    # Get - Set
+    def get_num1 (self):
+        return self.num1
+    
+    def set_num1 (self, num1):
+        self.num1 = num1
 
-    def realizar_resta(self, num1, num2):
-        self.resultado = num1 - num2
+    def get_num2 (self):
+        return self.num2
+    
+    def set_num2 (self, num2):
+        self.num2 = num2
 
-    def realizar_multiplicacion(self, num1, num2):
-        self.resultado = num1 * num2
+    def get_resultado(self):
+        return self.resultado
 
-    def realizar_division(self, num1, num2):
-        if num2 != 0:
-            self.resultado = num1 / num2
+    def set_resultado(self, resultado):
+        self.resultado = resultado
+    
+    # Operations
+
+    def realizar_suma(self):
+        self.resultado = self.num1 + self.num2
+
+    def realizar_resta(self):
+        self.resultado = self.num1 - self.num2
+
+    def realizar_multiplicacion(self):
+        self.resultado = self.num1 * self.num2
+
+    def realizar_division(self):
+        if self.num2 != 0:
+            self.resultado = self.num1 / self.num2
         else:
             self.resultado = "Error: División por cero"
 
-    def calcular_promedio(self, numeros):
-        if len(numeros) > 0:
-            self.resultado = sum(numeros) / len(numeros)
+    def calcular_promedio(self):
+        if len(self.memoria) > 0:
+            self.resultado = sum(self.memoria) / len(self.memoria)
         else:
             self.resultado = "Error: No hay suficientes elementos para calcular promedio"
 
-    def mostrar_binario(self, numero):
+    def mostrar_binario(self):
         try:
-            numero_float = float(numero)
+            numero_float = float(self.num1)
             self.resultado = bin(int(numero_float))[2:]
         except ValueError:
             self.resultado = "Error: Entrada inválida"
 
-    def es_primo(self, numero):
+    def es_primo(self):
         try:
-            numero_entero = int(numero)
+            numero_entero = int(self.num1)
             if numero_entero <= 1:
                 self.resultado = False
             else:
@@ -57,11 +80,10 @@ class OperationsModel:
         except ValueError:
             self.resultado = "Error: Entrada inválida"
 
-    def guardar_memoria(self, numero):
+    def guardar_memoria(self):
         try:
-
             # Actualiza la memoria en el modelo
-            self.memoria.append(numero)
+            self.memoria.append(self.resultado)
 
             # Verifica si hay más de 10 valores en la memoria
             if len(self.memoria) > self.MEMORIA_MAX:
@@ -77,6 +99,4 @@ class OperationsModel:
         except Exception as e:
             self.resultado = f"Error: {str(e)}"
 
-    def obtener_resultado(self):
-        return self.resultado
     
