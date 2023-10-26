@@ -1,7 +1,7 @@
 import tkinter as tk
 
 
-class Vista:
+class View:
     def __init__(self):
         window = tk.Tk()
         window.geometry('300x300')
