@@ -23,3 +23,4 @@ class Controller:
         btnStr = ev.widget.cget('text')
         if btnStr.isdigit() or btnStr == '.':
             self.view.txtMain.insert(len(self.view.txtMain.get()), btnStr)
+        
