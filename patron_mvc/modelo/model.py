@@ -90,13 +90,25 @@ class OperationsModel:
                 # Elimina el valor más antiguo de la memoria y del archivo
                 self.memoria = self.memoria[1:]
 
-            with open("memoria.txt", "w") as archivo:
-                for valor in self.memoria:
-                    archivo.write(str(valor) + '\n')
-
             self.resultado = "Valor guardado en memoria."
 
         except Exception as e:
             self.resultado = f"Error: {str(e)}"
 
-    
+    def guardar_bitacora(self, operation):
+
+        operationsText = {
+            "+": str(self.num1) + " + " + str(self.num2) + " = " + str(self.resultado),
+            "-": str(self.num1) + " - " + str(self.num2) + " = " + str(self.resultado),
+            "*": str(self.num1) + " * " + str(self.num2) + " = " + str(self.resultado),
+            "/": str(self.num1) + " / " + str(self.num2) + " = " + str(self.resultado),
+            "Avg": "Avg " + str(self.memoria) + " = " + str(self.resultado),
+            "Primo": "Primo " + str(self.num1) + " / " + str(self.num2) + " = " + str(self.resultado),
+            "M+": "M+ " + str(self.resultado) + " > " + str(self.memoria),
+            "Binario": "Binario " + str(self.num1) + " = " + str(self.resultado)
+        }
+
+        with open ("Bitacora.txt", "a") as archivo:
+            archivo.write(operationsText[operation] + "\n")
+            archivo.close()
+
