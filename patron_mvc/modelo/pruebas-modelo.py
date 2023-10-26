@@ -1,4 +1,4 @@
-from modelo import *
+from modelo import OperationsModel
 
 modelo_calculadora = OperationsModel()
 
