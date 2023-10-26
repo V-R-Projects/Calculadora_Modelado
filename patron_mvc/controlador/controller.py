@@ -5,7 +5,7 @@ class Controller:
     def __init__(self, model_, view_):
         self.model = model_
         self.view = view_
-        self.actualOperation = ""
+        self.currentOperation = ""
         self.operationsDict = {
             "+": self.model.realizar_suma,
             "-": self.model.realizar_resta,
@@ -67,14 +67,14 @@ class Controller:
             
             if btnStr == "C":
                 self.view.txtMain.delete(0,len(self.view.txtMain.get()))
-                self.actualOperation = ""
+                self.currentOperation = ""
                 self.activateButtons()
     
     def opPress(self, ev):
         self.eqPress(ev)
         if (ev.widget.cget("state") != tk.DISABLED):
             opStr = ev.widget.cget('text')
-            self.actualOperation = opStr
+            self.currentOperation = opStr
 
             num = self.view.txtMain.get()
             self.model.set_num1(float(num))
@@ -82,17 +82,20 @@ class Controller:
 
     
     def eqPress(self, ev):
-        if (ev.widget.cget("state") != tk.DISABLED and self.actualOperation):
+        if (ev.widget.cget("state") != tk.DISABLED and self.currentOperation):
             num = self.view.txtMain.get()
             self.model.set_num2(float(num))
-            self.operationsDict[self.actualOperation]()
+            self.operationsDict[self.currentOperation]()
             self.printResultado()
+            self.model.guardar_bitacora(self.currentOperation)
     
     def mpPress(self, ev):
         if (ev.widget.cget("state") != tk.DISABLED):
             self.deactivateButtons()
             self.model.guardar_memoria()
             self.printResultado()
+            self.model.guardar_bitacora(ev.widget.cget('text'))
+
 
         
         
