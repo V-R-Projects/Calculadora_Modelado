@@ -90,10 +90,13 @@ class OperationsModel:
                 # Elimina el valor más antiguo de la memoria y del archivo
                 self.memoria = self.memoria[1:]
 
-            self.resultado = "Valor guardado en memoria."
+            self.resultado = self.memoria
 
         except Exception as e:
             self.resultado = f"Error: {str(e)}"
+
+    def mostrar_memoria(self):
+        self.resultado = self.memoria
 
     def guardar_bitacora(self, operation):
 
