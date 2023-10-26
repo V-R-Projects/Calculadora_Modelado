@@ -14,7 +14,6 @@ class Vista:
         for i in range(5):
             window.columnconfigure(i, weight=1)
 
-
         # Creating all the widgets
         self.txtMain     = tk.Entry(window, justify=tk.RIGHT)
         self.numBtns     = [ tk.Button(window, text=str(x)) for x in (["C", "0", "."] + list(range(1,10)))]
@@ -65,6 +64,15 @@ class Vista:
         btnStr = ev.widget.cget('text')
         if btnStr.isdigit() or btnStr == '.':
             self.txtMain.insert(len(self.txtMain.get()), btnStr)
+        elif btnStr in "/*-+":
+            self.btnEqual.invoke()
+            self.num1 = float(self.txtMain.get())
+            self.op = btnStr
+            self.txtMain.delete(0,len(self.txtMain.get()))
+        elif btnStr == '=':
+            self.num2 = float(self.txtMain.get())
+            # do operation
+            
 
 if __name__ == '__main__':
     ins = Vista()
