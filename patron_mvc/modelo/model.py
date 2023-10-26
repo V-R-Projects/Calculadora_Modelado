@@ -50,35 +50,34 @@ class OperationsModel:
         if self.num2 != 0:
             self.resultado = self.num1 / self.num2
         else:
-            self.resultado = "Error: División por cero"
+            self.resultado = "Error: Division por cero"
 
     def calcular_promedio(self):
         if len(self.memoria) > 0:
             self.resultado = sum(self.memoria) / len(self.memoria)
         else:
-            self.resultado = "Error: No hay suficientes elementos para calcular promedio"
+            self.resultado = 0
 
     def mostrar_binario(self):
-        try:
-            numero_float = float(self.num1)
-            self.resultado = bin(int(numero_float))[2:]
-        except ValueError:
-            self.resultado = "Error: Entrada inválida"
+        if (self.num1 % 1 == 0):
+            self.resultado = bin(int(self.num1))[2:]
+        else:
+            self.resultado = "Error: Entrada invalida"
 
     def es_primo(self):
-        try:
-            numero_entero = int(self.num1)
+        if (self.num1 % 1 == 0):
+            numero_entero = self.num1
             if numero_entero <= 1:
-                self.resultado = False
+                self.resultado = "No es primo"
             else:
-                es_primo = True
+                es_primo = "Si es primo"
                 for i in range(2, int(numero_entero ** 0.5) + 1):
                     if numero_entero % i == 0:
-                        es_primo = False
+                        es_primo = "No es primo"
                         break
                 self.resultado = es_primo
-        except ValueError:
-            self.resultado = "Error: Entrada inválida"
+        else:
+            self.resultado = "Error: Entrada invalida"
 
     def guardar_memoria(self):
         try:
@@ -90,13 +89,13 @@ class OperationsModel:
                 # Elimina el valor más antiguo de la memoria y del archivo
                 self.memoria = self.memoria[1:]
 
-            self.resultado = self.memoria
+            # self.resultado = self.memoria
 
         except Exception as e:
             self.resultado = f"Error: {str(e)}"
 
     def mostrar_memoria(self):
-        self.resultado = self.memoria
+        self.resultado = str(self.memoria)
 
     def guardar_bitacora(self, operation):
 
@@ -106,12 +105,17 @@ class OperationsModel:
             "*": str(self.num1) + " * " + str(self.num2) + " = " + str(self.resultado),
             "/": str(self.num1) + " / " + str(self.num2) + " = " + str(self.resultado),
             "Avg": "Avg " + str(self.memoria) + " = " + str(self.resultado),
-            "Primo": "Primo " + str(self.num1) + " / " + str(self.num2) + " = " + str(self.resultado),
+            "Primo": "Primo " + str(self.num1) + " = " + str(self.resultado),
             "M+": "M+ " + str(self.resultado) + " > " + str(self.memoria),
             "Binario": "Binario " + str(self.num1) + " = " + str(self.resultado)
         }
 
         with open ("Bitacora.txt", "a") as archivo:
             archivo.write(operationsText[operation] + "\n")
+            archivo.close()
+    
+    def limpiar_bitacora(self):
+        with open ("Bitacora.txt", "w") as archivo:
+            archivo.write("")
             archivo.close()
 
