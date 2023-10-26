@@ -75,4 +75,4 @@ class View:
             
 
 if __name__ == '__main__':
-    ins = Vista()
+    ins = View()
