@@ -14,10 +14,10 @@ if __package__ is None:
     import patron_multicapas.business
     __package__ = 'patron_multicapas.business'
 
-from ..data.data import Data
+    from ..data.data import Data
 
 class Business:
-    def __init__(self, dataHandler_):
+    def __init__(self, dataHandler_ : Data):
         self.dataHandler = dataHandler_
 
     def save_result(self, result):
@@ -80,3 +80,7 @@ class Business:
             result = "Error: Entrada invalida"
 
         self.save_result(result)
+
+    def send_request(self, event, txt):
+        
+        return self.dataHandler.get_resultado()
