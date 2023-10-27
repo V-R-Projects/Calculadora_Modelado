@@ -87,6 +87,7 @@ class GUI:
             self.txtMain.delete(0,len(self.txtMain.get()))
             self.send_request(ev)
             self.activateButtons()
+            self.txtMain.delete(0,len(self.txtMain.get()))
     
     def deactivateButtons(self):
         for i in range(1,len(self.numBtns)):

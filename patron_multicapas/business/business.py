@@ -29,11 +29,12 @@ class Business:
             "M+": self.guardar_memoria,
             "Binario": self.mostrar_binario,
             "C": self.clear,
-            "=": self.equal
+            "Data": self.mostrar_memoria
         }
 
     def guardar_memoria(self):
         self.dataHandler.set_memory()
+        self.save_result(self.dataHandler.get_resultado())
 
     def save_result(self, result):
         self.dataHandler.set_resultado(result)
@@ -105,8 +106,17 @@ class Business:
             self.operationsDict[op]()
             self.save_operation("")
 
+    def mostrar_memoria(self):
+        self.save_result(str(self.dataHandler.get_memory()))
+    
 
     def opPress(self, operation):
+        if self.dataHandler.get_operation():
+            self.equal()
+            self.save_num1(self.dataHandler.get_resultado())
+            
+        if self.dataHandler.get_resultado():
+            self.save_result("")
         self.save_operation(operation)
 
     def clear(self):
@@ -123,8 +133,11 @@ class Business:
 
         if btn in "+-*/":
             self.opPress(btn)
+        elif btn == "=":
+            self.equal()
         else:
             special = True
+            self.save_operation(btn)
             self.operationsDict[btn]()
         
         return self.dataHandler.get_resultado(), special
