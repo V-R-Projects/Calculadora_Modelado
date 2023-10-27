@@ -1,5 +1,15 @@
 import tkinter as tk
 
+"""
+Clase Controller:
+
+Esta clase representa el controlador en el patrón de arquitectura MVC para una calculadora en Python. Controla la interacción
+entre el modelo (OperationsModel) y la vista (CalculatorView), implementando la lógica de las operaciones matemáticas y la 
+interacción del usuario. También gestiona las acciones de los botones en la interfaz gráfica.
+
+Autores: Valesska Blanco y Ramsés Gutiérrez
+"""
+
 class Controller:
 
     def __init__(self, model_, view_):

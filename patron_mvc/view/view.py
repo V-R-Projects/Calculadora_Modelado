@@ -1,5 +1,16 @@
 import tkinter as tk
 
+"""
+Clase View:
+
+Esta clase representa la vista en el patrón de arquitectura MVC para una calculadora en Python. Crea la interfaz gráfica 
+utilizando la biblioteca tkinter, incluyendo botones numéricos, operadores y otras funciones especiales. Establece el diseño
+y la disposición de los elementos en la ventana principal.
+
+No contiene lógica de aplicación, solo se encarga de presentar la interfaz al usuario.
+
+Autor: Valesska Blanco y Ramsés Gutiérrez
+"""
 
 class View:
     def __init__(self):
@@ -26,8 +37,7 @@ class View:
         self.btnEqual    = tk.Button(self.window, text="=")
 
         self.placeWidgets()
-
-        
+  
 
     
     def placeWidgets(self):
