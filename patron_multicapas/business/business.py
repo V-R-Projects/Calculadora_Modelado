@@ -4,6 +4,9 @@ class Business:
     def __init__(self, dataHandler_):
         self.dataHandler = dataHandler_
 
+    def guardar_memoria(self):
+        self.dataHandler.set_memory()
+
     def save_result(self, result):
         self.dataHandler.set_resultado(result)
 
