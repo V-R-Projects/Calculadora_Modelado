@@ -1,8 +1,25 @@
 import tkinter as tk
+import sys
+from pathlib import Path
 
+if __package__ is None:
+    file = Path(__file__).resolve()
+    parent, top = file.parent, file.parents[2]
+
+    sys.path.append(str(top))
+    try:
+        sys.path.remove(str(parent))
+    except ValueError: # Already removed
+        pass
+
+    import patron_multicapas.gui
+    __package__ = 'patron_multicapas.gui'
+
+    from ..business.business import Business
 
 class GUI:
-    def __init__(self):
+    def __init__(self, business_ : Business):
+        self.business = business_
         self.window = tk.Tk()
         self.window.geometry('300x300')
         self.window.title('MVC Calculator')
@@ -26,7 +43,7 @@ class GUI:
         self.btnEqual    = tk.Button(self.window, text="=")
 
         self.placeWidgets()
-
+        self.window.mainloop()
         
 
     
@@ -43,6 +60,26 @@ class GUI:
         self.btnBinario.grid(row=2, column=0, columnspan=3, sticky=tk.N+tk.E+tk.S+tk.W)
         self.btnData.grid(row=1, column=3, columnspan=2, rowspan=2, sticky=tk.N+tk.E+tk.S+tk.W)
         self.btnEqual.grid(row=5, column=4, rowspan=2, sticky=tk.N+tk.E+tk.S+tk.W)
+
+    def bindButtons(self):
+        for i in range(len(self.view.numBtns)):
+            self.view.numBtns[i].bind('<Button-1>', self.btnPress)
+        for i in range(len(self.view.opBtns)):
+            self.view.opBtns[i].bind('<Button-1>', self.opPress)
+
+        self.view.btnAvg.bind('<Button-1>', self.avgPress)
+        self.view.btnPrimo.bind('<Button-1>', self.primoPress)
+        self.view.btnBinario.bind('<Button-1>', self.binarioPress)
+        self.view.btnData.bind('<Button-1>', self.dataPress)
+        self.view.btnMp.bind('<Button-1>', self.mpPress)
+        self.view.btnEqual.bind('<Button-1>', self.eqPress)
+        self.view.txtMain.bind('<KeyPress>', self.preventDefault)
+
+        
+    def send_request(self, ev):
+        result = self.business.send_request(ev, self.txtMain.get())
+        self.txtMain.delete(0,len(self.txtMain.get()))
+        self.txtMain.insert(0, result)
 
             
 

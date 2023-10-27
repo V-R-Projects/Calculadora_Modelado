@@ -1,4 +1,2 @@
-patron_mvc/modelo/__pycache__
-patron_mvc/view/__pycache__
-patron_mvc/controlador/__pycache__
+__pycache__/
 .vscode
