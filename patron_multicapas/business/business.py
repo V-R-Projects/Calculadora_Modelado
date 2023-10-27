@@ -16,6 +16,16 @@ if __package__ is None:
 
     from ..data.data import Data
 
+"""
+Clase Business:
+
+Esta clase implementa la lógica de negocio para una calculadora utilizando una arquitectura de capas. Se encarga de
+gestionar las operaciones matemáticas, realizar cálculos y manejar las solicitudes del usuario. Esta clase
+sigue un enfoque multicapa en el diseño de la aplicación.
+
+Autor: Valesska Blanco y Ramsés Gutiérrez
+"""
+
 class Business:
     def __init__(self, dataHandler_):
         self.dataHandler = dataHandler_

@@ -17,6 +17,18 @@ if __package__ is None:
 
     from ..business.business import Business
 
+
+"""
+Clase GUI:
+
+Esta clase representa la interfaz gráfica de la calculadora utilizando una arquitectura de capas. Se encarga de mostrar los
+botones y la entrada de texto para la interacción del usuario. Los eventos del usuario se manejan a través de los métodos
+de esta clase, que interactúan con el objeto de negocios (Business) para realizar operaciones matemáticas y mostrar
+resultados.
+
+Autor: Valesska Blanco y Ramsés Gutiérrez
+"""
+
 class GUI:
     def __init__(self, business_):
         self.business = business_

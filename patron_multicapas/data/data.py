@@ -1,4 +1,13 @@
 
+"""
+Clase Data:
+
+Esta clase se encarga de gestionar los datos y el registro de operaciones para la calculadora utilizando una arquitectura de
+capas. Almacena los números ingresados por el usuario, el resultado de las operaciones, la operación actual y la memoria.
+También registra las operaciones en un archivo de bitácora.
+
+Autor: Valesska Blanco y Ramsés Gutiérrez
+"""
 
 class Data():
 
