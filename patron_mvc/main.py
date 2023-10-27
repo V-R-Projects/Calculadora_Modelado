@@ -1,6 +1,6 @@
-from modelo.model import OperationsModel
-from vista.view import View
-from controlador.controller import Controller
+from model.model import OperationsModel
+from view.view import View
+from controller.controller import Controller
 
 class Main:
 
