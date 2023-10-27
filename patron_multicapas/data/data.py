@@ -3,8 +3,8 @@
 class Data():
 
     def __init__(self):
-        self.num1 = 0
-        self.num2 = 0
+        self.num1 = None
+        self.num2 = None
         self.resultado = 0
         self.memoria = []
         self.MEMORIA_MAX = 10

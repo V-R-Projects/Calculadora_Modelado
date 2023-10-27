@@ -62,20 +62,33 @@ class GUI:
         self.btnEqual.grid(row=5, column=4, rowspan=2, sticky=tk.N+tk.E+tk.S+tk.W)
 
     def bindButtons(self):
-        for i in range(len(self.view.numBtns)):
-            self.view.numBtns[i].bind('<Button-1>', self.btnPress)
-        for i in range(len(self.view.opBtns)):
-            self.view.opBtns[i].bind('<Button-1>', self.opPress)
+        for i in range(len(self.numBtns)):
+            self.numBtns[i].bind('<Button-1>', self.btnPress)
+        for i in range(len(self.opBtns)):
+            self.opBtns[i].bind('<Button-1>', self.opPress)
 
-        self.view.btnAvg.bind('<Button-1>', self.avgPress)
-        self.view.btnPrimo.bind('<Button-1>', self.primoPress)
-        self.view.btnBinario.bind('<Button-1>', self.binarioPress)
-        self.view.btnData.bind('<Button-1>', self.dataPress)
-        self.view.btnMp.bind('<Button-1>', self.mpPress)
-        self.view.btnEqual.bind('<Button-1>', self.eqPress)
-        self.view.txtMain.bind('<KeyPress>', self.preventDefault)
+        # self.btnAvg.bind('<Button-1>', self.avgPress)
+        # self.btnPrimo.bind('<Button-1>', self.primoPress)
+        # self.btnBinario.bind('<Button-1>', self.binarioPress)
+        # self.btnData.bind('<Button-1>', self.dataPress)
+        # self.btnMp.bind('<Button-1>', self.mpPress)
+        # self.btnEqual.bind('<Button-1>', self.eqPress)
+        # self.txtMain.bind('<KeyPress>', self.preventDefault)
 
-        
+
+    def btnPress(self, ev):
+        if (ev.widget.cget("state") != tk.DISABLED):
+            btnStr = ev.widget.cget('text')
+            if btnStr.isdigit() or btnStr == '.':
+                self.view.txtMain.insert(len(self.view.txtMain.get()), btnStr)
+            
+            if btnStr == "C":
+                self.view.txtMain.delete(0,len(self.view.txtMain.get()))
+                self.currentOperation = ""
+                self.activateButtons()
+    
+    def activateButtons():
+        pass
     def send_request(self, ev):
         result = self.business.send_request(ev, self.txtMain.get())
         self.txtMain.delete(0,len(self.txtMain.get()))

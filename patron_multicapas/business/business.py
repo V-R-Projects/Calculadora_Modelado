@@ -19,6 +19,16 @@ if __package__ is None:
 class Business:
     def __init__(self, dataHandler_ : Data):
         self.dataHandler = dataHandler_
+        self.operationsDict = {
+            "+": self.realizar_suma,
+            "-": self.realizar_resta,
+            "*": self.realizar_multiplicacion,
+            "/": self.realizar_division,
+            "Avg": self.calcular_promedio,
+            "Primo": self.es_primo,
+            "M+": self.guardar_memoria,
+            "Binario": self.mostrar_binario
+        }
 
     def save_result(self, result):
         self.dataHandler.set_resultado(result)
