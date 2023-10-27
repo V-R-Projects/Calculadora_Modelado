@@ -38,5 +38,33 @@ class Data():
     def set_resultado(self, resultado):
         self.resultado = resultado
 
-    def get_operation_text(self, operation):
-        return self.operationsText[operation]
+
+    # Data Log and Memory
+
+    def set_memory(self):
+        try:
+            # Actualiza la memoria en el modelo
+            self.memoria.append(self.resultado)
+
+            # Verifica si hay más de 10 valores en la memoria
+            if len(self.memoria) > self.MEMORIA_MAX:
+                # Elimina el valor más antiguo de la memoria y del archivo
+                self.memoria = self.memoria[1:]
+
+            # self.resultado = self.memoria
+
+        except Exception as e:
+            self.resultado = f"Error: {str(e)}"
+
+    def get_memory(self):
+        return str(self.memoria)
+
+    def set_log(self, operation):
+        with open ("Bitacora.txt", "a") as archivo:
+            archivo.write(self.operationsText[operation] + "\n")
+            archivo.close()
+    
+    def clear_log(self):
+        with open ("Bitacora.txt", "w") as archivo:
+            archivo.write("")
+            archivo.close()
