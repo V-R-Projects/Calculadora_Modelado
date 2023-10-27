@@ -30,6 +30,9 @@ class Business:
             "Binario": self.mostrar_binario
         }
 
+    def guardar_memoria(self):
+        self.dataHandler.set_memory()
+
     def save_result(self, result):
         self.dataHandler.set_resultado(result)
 
