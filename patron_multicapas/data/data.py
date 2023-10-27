@@ -3,9 +3,10 @@
 class Data():
 
     def __init__(self):
-        self.num1 = None
-        self.num2 = None
+        self.num1 = 0
+        self.num2 = 0
         self.resultado = 0
+        self.operation = ""
         self.memoria = []
         self.MEMORIA_MAX = 10
         self.operationsText = {
@@ -37,6 +38,12 @@ class Data():
 
     def set_resultado(self, resultado):
         self.resultado = resultado
+
+    def get_operation(self):
+        return self.operation
+
+    def set_operation(self, operation):
+        self.operation = operation
 
 
     # Data Log and Memory

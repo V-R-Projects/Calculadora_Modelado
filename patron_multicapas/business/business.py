@@ -17,7 +17,7 @@ if __package__ is None:
     from ..data.data import Data
 
 class Business:
-    def __init__(self, dataHandler_ : Data):
+    def __init__(self, dataHandler_):
         self.dataHandler = dataHandler_
         self.operationsDict = {
             "+": self.realizar_suma,
@@ -27,7 +27,9 @@ class Business:
             "Avg": self.calcular_promedio,
             "Primo": self.es_primo,
             "M+": self.guardar_memoria,
-            "Binario": self.mostrar_binario
+            "Binario": self.mostrar_binario,
+            "C": self.clear,
+            "=": self.equal
         }
 
     def guardar_memoria(self):
@@ -36,6 +38,9 @@ class Business:
     def save_result(self, result):
         self.dataHandler.set_resultado(result)
 
+    def save_operation(self, result):
+        self.dataHandler.set_operation(result)
+
     def save_num1(self, num1):
         self.dataHandler.set_num1(num1)
 
@@ -43,20 +48,20 @@ class Business:
         self.dataHandler.set_num2(num2)
 
     def realizar_suma(self):
-        result = self.dataHandler.getnum1() + self.dataHandler.getnum2()
+        result = self.dataHandler.get_num1() + self.dataHandler.get_num2()
         self.save_result(result)
 
     def realizar_resta(self):
-        result = self.dataHandler.getnum1() - self.dataHandler.getnum2()
+        result = self.dataHandler.get_num1() - self.dataHandler.get_num2()
         self.save_result(result)
 
     def realizar_multiplicacion(self):
-        result = self.dataHandler.getnum1() * self.dataHandler.getnum2()
+        result = self.dataHandler.get_num1() * self.dataHandler.get_num2()
         self.save_result(result)
 
     def realizar_division(self):
         if self.dataHandler.get_num2() != 0:
-            result = self.dataHandler.getnum1() / self.dataHandler.getnum2()
+            result = self.dataHandler.get_num1() / self.dataHandler.get_num2()
             self.save_result(result)
         else:
             self.save_result("Error: Division por cero")
@@ -94,6 +99,32 @@ class Business:
 
         self.save_result(result)
 
+    def equal(self):
+        op = self.dataHandler.get_operation()
+        if (op):
+            self.operationsDict[op]()
+            self.save_operation("")
+
+
+    def opPress(self, operation):
+        self.save_operation(operation)
+
+    def clear(self):
+        self.save_operation("")
+        self.save_result("")
+
     def send_request(self, event, txt):
+        btn = event.widget.cget("text")
+        special = False
+        if txt and not self.dataHandler.get_operation():
+            self.save_num1(float(txt))
+        elif txt:
+            self.save_num2(float(txt))
+
+        if btn in "+-*/":
+            self.opPress(btn)
+        else:
+            special = True
+            self.operationsDict[btn]()
         
-        return self.dataHandler.get_resultado()
+        return self.dataHandler.get_resultado(), special

@@ -18,11 +18,11 @@ if __package__ is None:
     from ..business.business import Business
 
 class GUI:
-    def __init__(self, business_ : Business):
+    def __init__(self, business_):
         self.business = business_
         self.window = tk.Tk()
         self.window.geometry('300x300')
-        self.window.title('MVC Calculator')
+        self.window.title('Multilayer Calculator')
 
         #Stablish the grid
         for i in range(7):
@@ -43,6 +43,7 @@ class GUI:
         self.btnEqual    = tk.Button(self.window, text="=")
 
         self.placeWidgets()
+        self.bindButtons()
         self.window.mainloop()
         
 
@@ -65,34 +66,60 @@ class GUI:
         for i in range(len(self.numBtns)):
             self.numBtns[i].bind('<Button-1>', self.btnPress)
         for i in range(len(self.opBtns)):
-            self.opBtns[i].bind('<Button-1>', self.opPress)
+            self.opBtns[i].bind('<Button-1>', self.send_request)
 
-        # self.btnAvg.bind('<Button-1>', self.avgPress)
-        # self.btnPrimo.bind('<Button-1>', self.primoPress)
-        # self.btnBinario.bind('<Button-1>', self.binarioPress)
-        # self.btnData.bind('<Button-1>', self.dataPress)
-        # self.btnMp.bind('<Button-1>', self.mpPress)
-        # self.btnEqual.bind('<Button-1>', self.eqPress)
-        # self.txtMain.bind('<KeyPress>', self.preventDefault)
+        self.btnAvg.bind('<Button-1>', self.send_request)
+        self.btnPrimo.bind('<Button-1>', self.send_request)
+        self.btnBinario.bind('<Button-1>', self.send_request)
+        self.btnData.bind('<Button-1>', self.send_request)
+        self.btnMp.bind('<Button-1>', self.send_request)
+        self.btnEqual.bind('<Button-1>', self.send_request)
+        self.txtMain.bind('<KeyPress>', self.send_request)
 
 
     def btnPress(self, ev):
         if (ev.widget.cget("state") != tk.DISABLED):
             btnStr = ev.widget.cget('text')
             if btnStr.isdigit() or btnStr == '.':
-                self.view.txtMain.insert(len(self.view.txtMain.get()), btnStr)
+                self.txtMain.insert(len(self.txtMain.get()), btnStr)
             
-            if btnStr == "C":
-                self.view.txtMain.delete(0,len(self.view.txtMain.get()))
-                self.currentOperation = ""
-                self.activateButtons()
+        if btnStr == "C":
+            self.txtMain.delete(0,len(self.txtMain.get()))
+            self.send_request(ev)
+            self.activateButtons()
     
-    def activateButtons():
-        pass
+    def deactivateButtons(self):
+        for i in range(1,len(self.numBtns)):
+            self.numBtns[i].config(state = tk.DISABLED)
+        for i in range(len(self.opBtns)):
+            self.opBtns[i].config(state = tk.DISABLED)
+
+        self.btnAvg.config(state = tk.DISABLED)
+        self.btnPrimo.config(state = tk.DISABLED)
+        self.btnBinario.config(state = tk.DISABLED)
+        self.btnData.config(state = tk.DISABLED)
+        self.btnMp.config(state = tk.DISABLED)
+        self.btnEqual.config(state = tk.DISABLED)
+
+    def activateButtons(self):
+        for i in range(1,len(self.numBtns)):
+            self.numBtns[i].config(state = tk.NORMAL)
+        for i in range(len(self.opBtns)):
+            self.opBtns[i].config(state = tk.NORMAL)
+
+        self.btnAvg.config(state = tk.NORMAL)
+        self.btnPrimo.config(state = tk.NORMAL)
+        self.btnBinario.config(state = tk.NORMAL)
+        self.btnData.config(state = tk.NORMAL)
+        self.btnMp.config(state = tk.NORMAL)
+        self.btnEqual.config(state = tk.NORMAL)
+
     def send_request(self, ev):
-        result = self.business.send_request(ev, self.txtMain.get())
-        self.txtMain.delete(0,len(self.txtMain.get()))
-        self.txtMain.insert(0, result)
+        if (ev.widget.cget("state") != tk.DISABLED):
+            result, special = self.business.send_request(ev, self.txtMain.get())
+            if special: self.deactivateButtons()
+            self.txtMain.delete(0,len(self.txtMain.get()))
+            self.txtMain.insert(0, result)
 
             
 
