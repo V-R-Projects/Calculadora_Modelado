@@ -1,11 +1,13 @@
-'''
-**********************************************************
+"""
+Clase OperationsModel:
 
-Modelo de Operaciones para Calculadora
-Autores: Valesska Blanco Montoya y Ramsés Gutiérrez Rodríguez
+Este es el modelo en el patrón de arquitectura MVC para una calculadora en Python.
+Contiene métodos para realizar operaciones matemáticas básicas, gestionar memoria,
+verificar si un número es primo, y mantener un registro de operaciones en un archivo
+de bitácora.
 
-**********************************************************
-'''
+Autores: Valesska Blanco y Ramsés Gutiérrez
+"""
 
 class OperationsModel:
 
