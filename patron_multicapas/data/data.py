@@ -57,7 +57,7 @@ class Data():
             self.resultado = f"Error: {str(e)}"
 
     def get_memory(self):
-        return str(self.memoria)
+        return self.memoria
 
     def set_log(self, operation):
         with open ("Bitacora.txt", "a") as archivo:
